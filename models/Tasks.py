@@ -8,7 +8,8 @@ class Tasks(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     created_at = Column(DateTime, default=datetime.utcnow)
-    mp = Column(JSON, default=dict) 
-    team_id = Column(Integer, ForeignKey('teams.id')) 
+    mp = Column(JSON, default=dict)
 
+    created_by = Column(Integer, ForeignKey('user.id'))
     created_by_user = relationship('User', back_populates='tasks')
+

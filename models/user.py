@@ -4,12 +4,11 @@ from database import Base
 import enum
 
 class Role(enum.Enum):
-    team_lead = 'Team Lead'
-    team_member = 'Team Member'
+    team_lead = 'team_lead'
+    team_member = 'team_member'
 
 class User(Base):
     __tablename__ = 'user'
-    
 
     id = Column(Integer, primary_key=True, index=True)
     user_name = Column(String, nullable=False)
@@ -18,5 +17,5 @@ class User(Base):
     bio = Column(String, nullable=False)
     role = Column(Enum(Role), nullable=False)
 
-    teams=relationship('Teams',back_populates='created_by_user')
-    tasks=relationship('Tasks',back_populates='created_by_user')
+    teams = relationship('Teams', back_populates='created_by_user')
+    tasks = relationship('Tasks', back_populates='created_by_user')
