@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Unauthnavbar from "../components/unauthnavbar";
@@ -12,6 +13,13 @@ function Signup() {
   const [role, setRole] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  
+useEffect(() => {
+    const token = localStorage.getItem("access_token");
+    if (token) {
+      navigate("/dashboard");
+    }
+  }, [navigate]); 
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -31,7 +39,7 @@ function Signup() {
       });
 
       if (response.status === 200) {
-        localStorage.setItem("authToken", response.data.access_token);
+        localStorage.setItem("access_token", response.data.access_token);
         navigate("/dashboard");
       }
     } catch (err) {
@@ -89,6 +97,7 @@ function Signup() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+               maxLength={72}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
             />
           </div>
@@ -100,6 +109,7 @@ function Signup() {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
+               maxLength={72}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
             />
           </div>

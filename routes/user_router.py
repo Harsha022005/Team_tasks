@@ -12,7 +12,7 @@ router = APIRouter()
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 secretkey = 'harsha'
-token_exp = 5
+token_exp = 1440
 def get_db():
     db = Session_local()
     try:
